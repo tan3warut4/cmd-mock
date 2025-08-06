@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Unit Tests" tests="11" failures="0" errors="0" time="7.593">
+  <testsuite name="FiscalPeriodController - getById" errors="0" failures="0" skipped="0" timestamp="2025-08-05T09:54:21" time="5.026" tests="2">
+    <testcase classname="FiscalPeriodController - getById" name="should return fiscal period by id" time="0.019">
+    </testcase>
+    <testcase classname="FiscalPeriodController - getById" name="should return 400 if validation fails" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="FiscalPeriodController - create" errors="0" failures="0" skipped="0" timestamp="2025-08-05T09:54:21" time="5.289" tests="2">
+    <testcase classname="FiscalPeriodController - create" name="should create fiscal period and return 201" time="0.005">
+    </testcase>
+    <testcase classname="FiscalPeriodController - create" name="should return 400 when validation fails" time="0.017">
+    </testcase>
+  </testsuite>
+  <testsuite name="FiscalPeriodController - getAll" errors="0" failures="0" skipped="0" timestamp="2025-08-05T09:54:21" time="5.489" tests="1">
+    <testcase classname="FiscalPeriodController - getAll" name="should return list of fiscal periods" time="0.01">
+    </testcase>
+  </testsuite>
+  <testsuite name="GetFiscalByIdPeriodService" errors="0" failures="0" skipped="0" timestamp="2025-08-05T09:54:21" time="5.581" tests="2">
+    <testcase classname="GetFiscalByIdPeriodService" name="should return fiscal period when found" time="0.012">
+    </testcase>
+    <testcase classname="GetFiscalByIdPeriodService" name="should throw FiscalNotFoundError if not found" time="0.005">
+    </testcase>
+  </testsuite>
+  <testsuite name="GetAllFiscalPeriodService" errors="0" failures="0" skipped="0" timestamp="2025-08-05T09:54:21" time="5.683" tests="1">
+    <testcase classname="GetAllFiscalPeriodService" name="should return all fiscal periods with correct order" time="0.009">
+    </testcase>
+  </testsuite>
+  <testsuite name="CreateFiscalPeriodService" errors="0" failures="0" skipped="0" timestamp="2025-08-05T09:54:21" time="6.865" tests="3">
+    <testcase classname="CreateFiscalPeriodService" name="should call repo.create with given data and return the result" time="0.004">
+    </testcase>
+    <testcase classname="FiscalPeriodService (Integration)" name="should create and retrieve a fiscal period" time="0.135">
+    </testcase>
+    <testcase classname="FiscalPeriodService (Integration)" name="should get all fiscal periods" time="0.009">
+    </testcase>
+  </testsuite>
+</testsuites>

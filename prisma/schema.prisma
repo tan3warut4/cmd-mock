@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String    @id @default(uuid())
+  email      String    @unique
+  name       String
+  version    Int       @default(1)
+  deleted_at DateTime? @map("deleted_at")
+  created_at DateTime  @default(now()) @map("created_at")
+  updated_at DateTime  @updatedAt @map("updated_at")
+  updated_by Json?     @map("updated_by")
+  created_by Json?     @map("created_by")
+  deleted_by Json?     @map("deleted_by")
+ 
+
+  @@map("users")
+}
+
+model OutboxEvent {
+  id           String    @id @default(uuid())
+  event_type   String    @map("event_type")
+  event_data   Json      @map("event_data")
+  metadata     Json?     @map("metadata")
+  processed    Boolean   @default(false)
+  processed_at DateTime? @map("processed_at")
+  created_at   DateTime  @default(now()) @map("created_at")
+
+  @@map("outbox_events")
+}
+
+model EventLog {
+  id            String   @id @default(uuid())
+  aggregate_id  String   @map("aggregate_id")
+  event_type    String   @map("event_type")
+  event_version Int      @map("event_version")
+  event_data    Json     @map("event_data")
+  metadata      Json?    @map("metadata")
+  occurred_at   DateTime @map("occurred_at")
+  position      BigInt   @default(autoincrement())
+  updated_by    Json?    @map("updated_by")
+
+  @@index([aggregate_id])
+  @@index([event_type])
+  @@index([occurred_at])
+  @@index([position])
+  @@map("event_logs")
+}
+
+model FiscalPeriod {
+  id                String             @id @default(uuid())
+  name              Json?
+  startMonth        Int
+  startYear         Int
+  endMonth          Int
+  endYear           Int
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime?
+  tenantId          String
+  collectionPeriods CollectionPeriod[]
+}
+
+model CollectionPeriod {
+  id             String       @id @default(uuid())
+  name           Json
+  startMonth     Int
+  startYear      Int
+  endMonth       Int
+  endYear        Int
+  isOnline       Boolean
+  isLock         Boolean
+  additionalInfo String?
+  createdBy      String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime?
+  fiscalPeriodId String
+  fiscalPeriod   FiscalPeriod @relation(fields: [fiscalPeriodId], references: [id])
+
+  @@unique([fiscalPeriodId, startMonth, endMonth, startYear, endYear])
+}
